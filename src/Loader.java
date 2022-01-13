@@ -1,9 +1,7 @@
 
-public class Loader
-{
-    public static void main(String[] args)
-    {
-        String text = "Вася заработал 5000 рублей, Петя - 7563 рубля, а Маша - 30000 рублей";
+public class Loader {
+    public static void main(String[] args) {
+        String text = "    Вася  заработал 5000 рублей, Петя - 7563 рубля, а Маша - 30000 рублей     ";
         char part = ' ';
 
 
@@ -12,35 +10,31 @@ public class Loader
         System.out.println(numberOnly);*/
 
         printWithIndexes(text);
-        System.out.printf("Вхождения строки \"%s\" найдена на индексах: ", part);
-        searchChar(text, part);
-
+        System.out.print("Сумма зароботка всех ребят составляет: ");
+        System.out.println(sumNumbers(text, part));
 
     }
 
-    private static void searchChar(String text, char part) {
+    private static int sumNumbers(String text, char part) {
+        text = text.trim();
         int startIndex = 0;
         int endIndex = 0;
-        String serchNumbers = "";
-        int numbers;
-            while (!(startIndex == -1)) {
-                startIndex = text.indexOf(part, endIndex);
-                endIndex = text.indexOf(part, startIndex + 1);
-                if (endIndex == -1) {
-                    endIndex = text.length();
-                }
-                serchNumbers = text.substring(startIndex + 1, endIndex);
-                try
-                {
-                    numbers = Integer.parseInt(serchNumbers);
-                }
-                catch (NumberFormatException nfe)
-                {
-                    numbers = 0;
-                }
-
-                System.out.print(numbers + " ");
+        String serchNumbers;
+        int numbers = 0;
+        while (!(startIndex == -1)) {
+            startIndex = text.indexOf(part, endIndex);
+            endIndex = text.indexOf(part, startIndex + 1);
+            if (endIndex == -1) {
+                endIndex = text.length();
             }
+            serchNumbers = text.substring(startIndex + 1, endIndex);
+            try {
+                numbers += Integer.parseInt(serchNumbers);
+            } catch (NumberFormatException nfe) {
+                numbers += 0;
+            }
+        }
+        return numbers;
     }
 
 
