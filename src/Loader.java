@@ -1,7 +1,7 @@
 
 public class Loader {
     public static void main(String[] args) {
-        String text = "    Вася заработал 504500 рублей, Петя - 7563 рубля, а Маша - 30000 рублей     ";
+        String text = "    Вася заработал 504500 рублей, Петя - 7563 рубля, а Маша - 30000";
         char space = ' ';
 
         /*String numberOnly = text.replaceAll("[^0-9]", "");
@@ -15,30 +15,36 @@ public class Loader {
         text = text.trim();
         int startIndex = 0;
         int endIndex = 0;
-        String serchNumbers;
+        String searchNumbers;
         int sumNumbers = 0;
-        while (!(startIndex == -1)) {
+        while (startIndex != -1) {
             startIndex = text.indexOf(part, endIndex);
             endIndex = text.indexOf(part, startIndex + 1);
             if (endIndex == -1) {
                 endIndex = text.length();
             }
-            serchNumbers = text.substring(startIndex + 1, endIndex);
-            try {
-                sumNumbers += Integer.parseInt(serchNumbers);
-            } catch (NumberFormatException nfe) {
-                sumNumbers += 0;
+            searchNumbers = text.substring(startIndex + 1, endIndex);
+            if (isNumber(text)) {
+                sumNumbers += Integer.parseInt(searchNumbers);
             }
         }
         return sumNumbers;
     }
 
+    private static boolean isNumber(String checkNumber) {
+        try {
+            Integer.parseInt(checkNumber);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
     private static void printWithIndexes(String string) {
         StringBuilder letters = new StringBuilder("char: ");
         StringBuilder indexes = new StringBuilder("index:");
-        for (int i = 0; i < string.length(); i++) {
-            letters.append(String.format("%3s", string.charAt(i)));
+        for (int i = 0; i < string.trim().length(); i++) {
+            letters.append(String.format("%3s", string.trim().charAt(i)));
             indexes.append(String.format("%3d", i));
         }
         System.out.println(letters);
