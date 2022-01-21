@@ -1,11 +1,17 @@
+import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Loader {
     public static void main(String[] args) {
-        String text = "    Вася заработал 504500 рублей, Петя - 7563 рубля, а Маша - 30000";
+        String text = "Вася заработал 504500 рублей, Петя - 7563 рубля, а Маша - 30000";
         char space = ' ';
 
-        /*String numberOnly = text.replaceAll("[^0-9]", "");
-        System.out.println(numberOnly);*/
+        Pattern pattern = Pattern.compile("[а-яА-Я]+");
+        Matcher matcher = pattern.matcher(text);
+        while (matcher.find()) {
+            System.out.println(text.substring(matcher.start(), matcher.end()));
+        }
 
         printWithIndexes(text);
         System.out.print("Сумма зароботка всех ребят составляет: " + sumNumbers(text, space) + " рублей");
